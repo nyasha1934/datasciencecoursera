@@ -1,4 +1,6 @@
-# Practice Assignment
+# PRACTICE ASSIGNMENT
+
+# Getting Started
 
 # download and unzip data file as instucted
 dataset_url <- "http://s3.amazonaws.com/practice_assignment/diet_data.zip"
@@ -23,7 +25,7 @@ dim(andy)
 
 
 
-# other commands to get a feel of the data file
+# Commands To Get A Feel For The Data Files
 
 # str() compactly displays the internal stucture of the R object
 str(andy)
@@ -35,4 +37,4 @@ summary(andy)
 names(andy)
 
 
-# play around with a couple of concepts
+# Playing Around With A Couple of Concepts
