@@ -1,9 +1,4 @@
 # PRACTICE ASSIGNMENT
-<<<<<<< HEAD
-=======
-
-# Getting Started
->>>>>>> 969e36212411dc62ecd31f18fe902d0148213270
 
 # Getting Started
 
@@ -30,11 +25,7 @@ dim(andy)
 
 
 
-<<<<<<< HEAD
-# Gettigng A Feel For The Data
-=======
 # Commands To Get A Feel For The Data Files
->>>>>>> 969e36212411dc62ecd31f18fe902d0148213270
 
   # str() compactly displays the internal stucture of the R object
 str(andy)
@@ -46,7 +37,6 @@ summary(andy)
 names(andy)
 
 
-<<<<<<< HEAD
 # GETTING FAMILIAR WITH THE DATASET
 
 # Subsetting the data
