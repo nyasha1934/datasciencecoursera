@@ -207,9 +207,14 @@ weightmedian <- function(directory, day) {
 weightmedian(directory = "diet_data", day = 20)
 weightmedian("diet_data", 4)
 weightmedian("diet_data", 17)
+<<<<<<< Updated upstream
 =======
 # Playing Around With A Couple of Concepts
 >>>>>>> 969e36212411dc62ecd31f18fe902d0148213270
 =======
 # Playing Around With A Couple of Concepts
 >>>>>>> 969e36212411dc62ecd31f18fe902d0148213270
+=======
+
+# The end!
+>>>>>>> Stashed changes
