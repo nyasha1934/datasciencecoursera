@@ -126,7 +126,7 @@ pollutantmean <- function(directory, pollutant, id = 1:332) {
     dat <- data.frame()
     
     # For loop to run through files and combine them into a single data frame
-    for (i in 1:332) {
+    for (i in 1:length(files_list)) {
         dat <- rbind(dat, read.csv(files_list[i]))
     }
   
@@ -158,70 +158,30 @@ mon2com
   # count the number of complete.cases
 nrow(mon2com)
 
+comDf <- data.frame()
+# Create a single data frame with all the complete cases listed
+# rbind all the files
+  for(i in 1:length(files_list) {
+      
+  }
 
-# Create a single data frame with all the files listed
-dat <- data.frame()
-  # rbind all the files
+
+
+complete <- function(directory, id = 1:332) {
+  # assign the directory
+  files_list <- list.files("specdata", full.names = TRUE, pattern = "csv")
+  id <- length(files_list)
+  # create an empty vector
+  fulldata <- data.frame()
+  # for loop all data files into one file
   for(i in 1:332) {
-      dat <- rbind(dat, read.csv(files_list[i]))
-  }
-  # select only the complete.cases and store in "comDf"
-comDf <- dat[complete.cases(dat), ]
-
-
-complete <- function(directory, id = 1:332) {
-    x = list.files("specdata")
-    y = x[match(id, as.numeric(sub(".csv", "", x)))]
-    z = file.path("specdata", y)
-    a = function(z) sum(complete.cases(read.csv(z)))
-    data.frame(id =id, nobs = unlist(lapply(z,a)))
-}
-
-complete("specdata", 1)
-complete("specdata", c(2, 4, 8, 10, 12))
-complete("specdata", 30:25)
-complete("specdata", 3)
-
-## ANOTHER WAY TO DO IT (more understandable)
-
-complete <- function(directory, id = 1:332) {
-    files_list <- list.files("specdata", full.names = TRUE)
-    obs <- data.frame()
-    for(i in id) {
-        comDf <- sum(complete.cases(read.csv(files_list[i])))
-        obs <- rbind(obs, comDf)
+      fulldata <- rbind(fulldata, read.csv(files_list[i]))
     }
-    report <- cbind(id, obs)
-    colnames(report) <- c("id", "nobs")
-    report
+    com_subset <- data.frame[complete.cases(fulldata), ]
 }
-complete("specdata", 1)
-complete("specdata", c(2, 4, 8, 10, 12))
+
 complete("specdata", 30:25)
-complete("specdata", 3) 
-
-
-
-complete <- function(directory, id = 1:332) {
-  files_list <- list.files("specdata", full.names = TRUE)
-  obs <- data.frame()
-  for(i in id) {
-    comDf <- sum(complete.cases(read.csv(files_list[i])))
-    obs <- rbind(obs, comDf)
-  }
-  report <- data.frame(id = id, nobs = obs)  ## figure how to get "nobs" to column name 
-  report
-}
-complete("specdata", 1)
-complete("specdata", c(2, 4, 8, 10, 12))
-complete("specdata", 30:25)
-complete("specdata", 3) 
-
-
-
-# PART 3
-
- 
+com_subset  
 
 
 
