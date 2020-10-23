@@ -159,6 +159,7 @@ mon2com
 nrow(mon2com)
 
 
+## ROUGH DRADT, PLAYING AROUND WITH SOME FUNCTIONS
 # Create a single data frame with all the files listed
 dat <- data.frame()
   # rbind all the files
@@ -168,6 +169,8 @@ dat <- data.frame()
   # select only the complete.cases and store in "comDf"
 comDf <- dat[complete.cases(dat), ]
 
+
+## AN ADVANCED SOLUTION
 
 complete <- function(directory, id = 1:332) {
     x = list.files("specdata")
@@ -182,7 +185,7 @@ complete("specdata", c(2, 4, 8, 10, 12))
 complete("specdata", 30:25)
 complete("specdata", 3)
 
-## ANOTHER WAY TO DO IT (more understandable)
+## BEGINNERS (more understandable)
 
 complete <- function(directory, id = 1:332) {
     files_list <- list.files("specdata", full.names = TRUE)
