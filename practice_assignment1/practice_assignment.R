@@ -41,7 +41,7 @@ names(andy)
 
 # GETTING FAMILIAR WITH THE DATASET
 
-# Subsetting the data
+# Subsetting The Data
 
   # the first row of the "weight" column
 andy[1, "Weight"]
@@ -102,7 +102,6 @@ head(andy_david)      ## shows the top of the data frame, Andy's data
 tail(andy_david)      ## shows the tail of the data frame, David's data
   # note: rbind needs 2 arguments; the first is an existing data frame adn the second is what you append to it
   # as such, you may need to create an empty data set just so there is something to use as the existing data fram in the rbind argument
-
 
 # Create a subset of the data frame that only shows the 25th day for Andy and David
 day_25 <- andy_david[which(andy_david$Day == 25), ]
@@ -181,7 +180,7 @@ median(dat_30$Weight)
 weightmedian <- function(directory, day) {#content of the function}
   
   # What goes in the "content of the function"?
-  # 1. we need a data frame with allteh data from the CSVs
+  # 1. we need a data frame with all the data from the CSVs 
   # 2. we'll subset the data frame using the argument 'day' 
   # 3. take the median of that subset
   
