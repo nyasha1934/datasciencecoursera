@@ -140,6 +140,33 @@ pollutantmean("specdata", "nitrate", 70:72)
 pollutantmean("specdata", "nitrate", 23)
 
 
+# Another Way To Do It (no need to "rbind", just read all the files in the list)
+
+polutantmean <- function(directory, pollutant, id = 332) {
+    
+    # Assign a directory
+    files_list <- list.files("specdata", full.names = TRUE, pattern = "csv")
+    
+    # Create an empty vector
+    dat <- data.frame()
+    
+    # For loop to read all the data files at once and store in vector
+    for(i in 1:length(files_list)) {
+      
+        # Where to read the files to obtain pollutant values
+        read <- read.csv(files_list[i])
+        dat <- c(dat, read[[pollutant]])
+    }
+    
+    # Return value and exclude missing values
+    mean(dat, na.rm = TRUE)
+}
+
+pollutantmean("specdata", "sulfate", 1:10)
+pollutantmean("specdata", "nitrate", 70:72)
+pollutantmean("specdata", "nitrate", 23)  
+
+
 
 # PART 2
 
@@ -187,17 +214,25 @@ complete("specdata", 3)
 
 ## BEGINNERS (more understandable)
 
+# Assign the directory
 complete <- function(directory, id = 1:332) {
-    files_list <- list.files("specdata", full.names = TRUE)
-    obs <- data.frame()
-    for(i in id) {
-        comDf <- sum(complete.cases(read.csv(files_list[i])))
-        obs <- rbind(obs, comDf)
-    }
-    report <- cbind(id, obs)
-    colnames(report) <- c("id", "nobs")
-    report
+  files_list <- list.files("specdata", full.names = TRUE)
+  
+  # Create an empty vector to populate with number of observations
+  nobs <- data.frame()
+  
+  # For loop to check all the files and all complete cases from all cases
+  for(i in id) {
+    comDf <- sum(complete.cases(read.csv(files_list[i])))
+    obs <- rbind(obs, comDf)
+  }
+  
+  # Create a data frame with two columns, add column names for each column
+  report <- cbind(id, obs)
+  colnames(report) <- c("id", "nobs")
+  report
 }
+
 complete("specdata", 1)
 complete("specdata", c(2, 4, 8, 10, 12))
 complete("specdata", 30:25)
@@ -205,16 +240,27 @@ complete("specdata", 3)
 
 
 
+# ANOTHER SIMPLIFIED WAY TO DO IT
+
 complete <- function(directory, id = 1:332) {
-  files_list <- list.files("specdata", full.names = TRUE)
-  obs <- data.frame()
-  for(i in id) {
-    comDf <- sum(complete.cases(read.csv(files_list[i])))
-    obs <- rbind(obs, comDf)
-  }
-  report <- data.frame(id = id, nobs = obs)  ## figure how to get "nobs" to column name 
-  report
-}
+  
+    # Assign a directory
+    files_list <- list.files("specdata", full.names = TRUE)
+    
+    # Create an empty vector to store the number of observations
+    nobs <- numeric()
+    
+    # For loop to read all the files and store sum of complete cases for each
+      # id in the empty vector
+    for(i in id) {
+        read <- read.csv(files_list[i])
+        nobs <- c(nobs, sum(complete.cases(read)))
+    }
+    
+    # Return value of a data frame with two columns labeled "id" and "nobs"
+    data.frame(id, nobs)
+} 
+
 complete("specdata", 1)
 complete("specdata", c(2, 4, 8, 10, 12))
 complete("specdata", 30:25)
@@ -224,9 +270,53 @@ complete("specdata", 3)
 
 # PART 3
 
- 
+# Write a function that takes a directory of data files and a threshold for
+  # complete cases and calculates the correlation between sulfate and nitrate
+  # for monitor locations where the number of completely observed cases
+  # (on all variables) is greater than the threshold.
 
+# Return a vector of correlations for the monitors that meet the threshold
+# If no monitors meet the threshold, the function should return a numeric vector length of 0
 
+corr <- function(directory, threshold = 0) {
+  
+    # Assign a directory
+    files_list <- list.files("specdata", full.names = TRUE)
+    
+    # Create an empty numeric vector to return the result
+    result <- numeric()
+    
+    # For loop to read the files list and select for complete cases
+    for(i in 1:332) {
+        read <- (read.csv(files_list[i]))
+        
+        # Select for rows of complete cases
+        comDf <- read[complete.cases(read), ]
+        
+        # Set conditions for threshold to calculate correlation between sulfate and nitrate
+        if(nrow(comDf) > threshold) {
+            result <- c(result, cor(comDf$sulfate, comDf$nitrate))
+        } else 0
+    }
+    # Set return value
+    return(result)
+}
+
+cr <- corr("specdata", 150)
+head(cr)
+summary(cr)
+
+cr <- corr("specdata", 400)
+head(cr)
+summary(cr)
+
+cr <- corr("specdata", 5000)
+summary(cr)
+length(cr)
+
+cr <- corr("specdata")
+summary(cr)
+length(cr)
 
 
   
