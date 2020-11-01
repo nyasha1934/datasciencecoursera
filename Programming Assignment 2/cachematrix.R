@@ -1,5 +1,5 @@
 
-## This function creates a special invertible "matrix" object that can cache its inverse
+## This function creates a "square invertible matrix" object that can cache its inverse
 
 makeCacheMatrix <- function(x = matrix()) {
     inv <- NULL
@@ -31,7 +31,7 @@ cacheSolve <- function(x, ...) {
             return(inv)
     }
     
-    # otherwise, calucate the inverse
+    # otherwise, calculate the inverse
     mat <- x$get()
     inv <- solve(mat, ...)
     
@@ -43,30 +43,30 @@ cacheSolve <- function(x, ...) {
 
 # TESTING
 
-pmatrix <- makeCacheMatrix(matrix(1:4, nrow = 2, ncol = 2))
+mtrx <- makeCacheMatrix(matrix(1:4, nrow = 2, ncol = 2))
   
     # get the matrix you created
-pmatrix$get()
+mtrx$get()
 #      [,1] [,2]
 # [1,]    1    3
 # [2,]    2    4
 
     # get inverse of the matrix
-pmatrix$getInverse()
+mtrx$getInverse()
 # NULL (the matrix has not been cached)
 
-cacheSolve(pmatrix)
+cacheSolve(mtrx)
 #      [,1] [,2]
 # [1,]   -2  1.5
 # [2,]    1 -0.5
 
-cacheSolve(pmatrix)
+cacheSolve(mtrx)
 # getting cached data (skips the computation as the inverse is already cached)
 #      [,1] [,2]
 # [1,]   -2  1.5
 # [2,]    1 -0.5
 
-pmatrix$getInverse()
+mtrx$getInverse()
 #      [,1] [,2]
 # [1,]   -2  1.5
 # [2,]    1 -0.5
